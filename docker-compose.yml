@@ -1,9 +1,7 @@
 web:
   image: ckpt/web-frontend
   ports:
-    - "8080:80"
-  links:
-    - api:api.ckpt.no
+    - "8888:80"
 api:
   image: ckpt/backend-services
   ports:
