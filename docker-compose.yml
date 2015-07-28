@@ -12,7 +12,7 @@ api:
     - redis
 redis:
   images: redis
-  voluems:
+  volumes:
     - data/:/data
     - conf/redis.conf:/usr/local/etc/redis/redis.conf
   command: redis-server /usr/local/etc/redis/redis.conf
