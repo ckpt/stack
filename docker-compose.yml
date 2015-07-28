@@ -1,0 +1,18 @@
+web:
+  image: ckpt/web-frontend
+  ports:
+    - "8080:80"
+  links:
+    - api
+api:
+  image: ckpt/backend-services
+  ports:
+    - "8000:8000"
+  links:
+    - redis
+redis:
+  images: redis
+  voluems:
+    - data/:/data
+    - conf/redis.conf:/usr/local/etc/redis/redis.conf
+  command: redis-server /usr/local/etc/redis/redis.conf
