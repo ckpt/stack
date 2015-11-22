@@ -21,4 +21,4 @@ redis:
 rabbitmq:
   image: rabbitmq
   environment:
-    - HOSTNAME: ckpt-rabbitmq
+    - HOSTNAME=ckpt-rabbitmq
