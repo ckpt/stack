@@ -7,8 +7,6 @@ api:
   image: ckpt/backend-services
   ports:
     - "8000:8000"
-  volumes:
-    - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt
   links:
     - redis
     - rabbitmq
