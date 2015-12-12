@@ -6,7 +6,7 @@ api:
   env_file: .env
   environment:
     - CKPT_DEVELOPMENT=true
-  image: ckpt/backend-services
+  image: ckpt/backend-services:dev
   ports:
     - "9000:8000"
   volumes:
