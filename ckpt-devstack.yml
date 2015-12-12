@@ -1,0 +1,26 @@
+web:
+  image: ckpt/web-frontend
+  ports:
+    - "127.0.0.1:9999:80"
+api:
+  env_file: .env
+  environment:
+    - CKPT_DEVELOPMENT=true
+  image: ckpt/backend-services
+  ports:
+    - "9000:8000"
+  volumes:
+    - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt
+  links:
+    - redis
+    - rabbitmq
+redis:
+  image: redis
+  volumes:
+    - ./data/:/data
+    - ./conf/redis.conf:/usr/local/etc/redis/redis.conf
+  command: redis-server /usr/local/etc/redis/redis.conf
+rabbitmq:
+  image: rabbitmq
+  environment:
+    - HOSTNAME=ckpt-rabbitmq
