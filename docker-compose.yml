@@ -1,26 +1,34 @@
-web:
-  image: ckpt/web-frontend
-  ports:
-    - "127.0.0.1:8888:80"
-api:
-  env_file: .env
-  image: ckpt/backend-services
-  ports:
-    - "8000:8000"
-  volumes:
-    - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt
-  links:
-    - redis
-    - rabbitmq
-redis:
-  image: redis
-  ports:
-    - "127.0.0.1:6379:6379"
-  volumes:
-    - ./data/:/data
-    - ./conf/redis.conf:/usr/local/etc/redis/redis.conf
-  command: redis-server /usr/local/etc/redis/redis.conf
-rabbitmq:
-  image: rabbitmq
-  environment:
-    - HOSTNAME=ckpt-rabbitmq
+version: '2'
+
+services:
+  web:
+    image: ckpt/web-frontend
+    ports:
+      - "127.0.0.1:8888:80"
+    restart: always
+  api:
+    env_file: .env
+    image: ckpt/backend-services
+    ports:
+      - "8000:8000"
+    volumes:
+      - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt
+    links:
+      - redis
+      - rabbitmq
+    restart: always
+  redis:
+    image: redis
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - ./data/:/data
+      - ./conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    restart: always
+  rabbitmq:
+    image: rabbitmq
+    hostname: ckpt-rabbitmq
+    environment:
+      - HOSTNAME=ckpt-rabbitmq
+    restart: always
